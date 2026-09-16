@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Cars Collection: Public Showroom vs Private
+    match /cars/{carId} {
+      // Public can read only approved or sold cars; Authenticated Admin can read all
+      allow read: if (resource.data.status in ['available', 'sold']) || isSignedIn();
+
+      // Authenticated Admin can create any car
+      // Public can submit a car ONLY with status == 'pending'
+      // Allow initial seed creation if marked with isInitialSeed == true
+      allow create: if isSignedIn() || 
+                      request.resource.data.status == 'pending' || 
+                      request.resource.data.isInitialSeed == true;
+      
+      // Only authenticated admin can approve, reject, edit, mark as sold, or delete cars
+      allow update, delete: if isSignedIn();
+    }
+
+    // Vehicle Owners Collection: STRICTLY CONFIDENTIAL & SEPARATE
+    // Public buyers NEVER have read access to owner phone numbers or names
+    match /vehicle_owners/{carId} {
+      // ONLY authenticated Admin can read private owner records
+      allow read: if isSignedIn();
+
+      // Public vehicle sellers can submit their contact info once upon submission
+      allow create: if request.resource.data.carId == carId;
+
+      // Only authenticated admin can update or delete private owner records
+      allow update, delete: if isSignedIn();
+    }
+
+    // Customer Enquiries Collection: Secure Leads
+    match /enquiries/{enquiryId} {
+      // Public visitors can submit test drive or purchase enquiries
+      allow create: if request.resource.data.name is string && request.resource.data.phone is string;
+
+      // Only authenticated admin can read, manage, or delete enquiries
+      allow read, update, delete: if isSignedIn();
+    }
+
+    // Dealership Settings: Public can read showroom hours and contact info
+    // Admin can write, or bootstrap if doc does not exist yet
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isSignedIn() || !exists(/databases/$(database)/documents/settings/$(docId));
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "projectId": "am-cars-ambai",
+  "appId": "1:452734273848:web:913a273931418884cc19cd",
+  "apiKey": "AIzaSyC6SCbujuWEb6mlxnM1ChyiwnB3NqS2gRA",
+  "authDomain": "am-cars-ambai.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-amcarsambai-705290c8-b110-4ffb-9c42-c3945ff2a2a0",
+  "storageBucket": "am-cars-ambai.firebasestorage.app",
+  "messagingSenderId": "452734273848",
+  "measurementId": "",
+  "oAuthClientId": "452734273848-35c0ncdcsfc7rf9q46i70s6veflf7726.apps.googleusercontent.com",
+  "recaptchaSiteKey": ""
+}

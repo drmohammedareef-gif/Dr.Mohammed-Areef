@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "Car": {
+      "title": "Car",
+      "description": "Vehicle inventory listing",
+      "type": "object",
+      "properties": {
+        "brand": { "type": "string" },
+        "model": { "type": "string" },
+        "variant": { "type": "string" },
+        "year": { "type": "number" },
+        "price": { "type": "number" },
+        "kilometers": { "type": "number" },
+        "fuelType": { "type": "string" },
+        "transmission": { "type": "string" },
+        "status": { "type": "string", "enum": ["available", "sold", "pending", "rejected"] }
+      },
+      "required": ["brand", "model", "price", "status"]
+    },
+    "VehicleOwner": {
+      "title": "VehicleOwner",
+      "description": "Private vehicle owner contact and financial details",
+      "type": "object",
+      "properties": {
+        "carId": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "ownerPhone": { "type": "string" },
+        "ownerWhatsapp": { "type": "string" },
+        "ownerNotes": { "type": "string" }
+      },
+      "required": ["carId", "ownerName", "ownerPhone"]
+    },
+    "Enquiry": {
+      "title": "Enquiry",
+      "description": "Customer purchase enquiry or test drive booking",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "message": { "type": "string" },
+        "carId": { "type": "string" },
+        "carModel": { "type": "string" }
+      },
+      "required": ["name", "phone"]
+    },
+    "DealershipSettings": {
+      "title": "DealershipSettings",
+      "description": "Showroom contact details and operating configuration",
+      "type": "object",
+      "properties": {
+        "businessName": { "type": "string" },
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "address": { "type": "string" }
+      },
+      "required": ["businessName", "phone"]
+    }
+  },
+  "firestore": {
+    "/cars/{carId}": {
+      "schema": "Car",
+      "description": "Showroom vehicles readable by public when approved, managed by admins"
+    },
+    "/vehicle_owners/{carId}": {
+      "schema": "VehicleOwner",
+      "description": "Private owner information accessible strictly by authenticated admins"
+    },
+    "/enquiries/{enquiryId}": {
+      "schema": "Enquiry",
+      "description": "Customer enquiries submittable by public, readable only by admins"
+    },
+    "/settings/{settingsId}": {
+      "schema": "DealershipSettings",
+      "description": "Public showroom configuration managed by admins"
+    }
+  }
+}

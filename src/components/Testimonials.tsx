@@ -33,17 +33,17 @@ export const Testimonials: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-neutral-950/80 border-b border-neutral-900">
+    <section className="py-16 sm:py-24 bg-slate-50/70 border-b border-neutral-200/80">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-red-600/30 bg-red-600/10 px-3.5 py-1 text-xs font-semibold text-red-400 mb-3">
-            <Star className="h-3.5 w-3.5 fill-current" />
-            <span>Customer Stories</span>
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-bold text-emerald-800 mb-3">
+            <Star className="h-3.5 w-3.5 fill-current text-amber-500" />
+            <span>Customer Testimonials</span>
           </div>
-          <h2 className="font-display text-3xl font-extrabold text-white tracking-tight">
-            Trusted by Happy Drivers in Ambai & Tirunelveli
+          <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight uppercase">
+            Trusted Across Ambai & Tirunelveli
           </h2>
-          <p className="mt-2 text-sm text-neutral-300">
+          <p className="mt-2 text-xs sm:text-sm text-neutral-600">
             Real feedback from our satisfied car owners across southern Tamil Nadu.
           </p>
         </div>
@@ -52,7 +52,7 @@ export const Testimonials: React.FC = () => {
           {reviews.map((rev, idx) => (
             <div
               key={idx}
-              className="relative rounded-2xl border border-neutral-800 bg-neutral-900/50 p-6 flex flex-col justify-between"
+              className="relative rounded-3xl border border-neutral-200 bg-white p-7 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow"
             >
               <div>
                 {/* Stars */}
@@ -62,26 +62,25 @@ export const Testimonials: React.FC = () => {
                   ))}
                 </div>
 
-                <Quote className="h-6 w-6 text-neutral-600 mb-2 opacity-60" />
+                <Quote className="h-6 w-6 text-emerald-600/30 mb-2" />
 
-                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed italic">
+                <p className="text-xs sm:text-sm text-neutral-700 leading-relaxed italic mb-6">
                   "{rev.quote}"
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-neutral-800 flex items-center justify-between">
+              <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
                 <div>
-                  <h4 className="font-bold text-white text-xs sm:text-sm flex items-center gap-1.5">
-                    <span>{rev.name}</span>
-                    <CheckCircle className="h-3.5 w-3.5 text-emerald-400" />
+                  <h4 className="font-display text-sm font-bold text-neutral-900">
+                    {rev.name}
                   </h4>
-                  <p className="text-[11px] text-neutral-400">{rev.location}</p>
+                  <p className="text-[11px] text-neutral-500">
+                    {rev.location} • <span className="text-emerald-700 font-semibold">{rev.car}</span>
+                  </p>
                 </div>
-                <div className="text-right">
-                  <span className="rounded bg-neutral-800 px-2 py-0.5 text-[10px] font-semibold text-amber-300">
-                    {rev.car}
-                  </span>
-                  <p className="text-[10px] text-neutral-500 mt-0.5">{rev.date}</p>
+                <div className="flex items-center gap-1 text-[11px] text-emerald-700 font-medium">
+                  <CheckCircle className="h-3.5 w-3.5" />
+                  <span>Verified</span>
                 </div>
               </div>
             </div>

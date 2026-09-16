@@ -123,18 +123,18 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
   return (
     <div
       id="car-details-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/90 backdrop-blur-md overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-neutral-950/70 backdrop-blur-sm overflow-y-auto"
       onClick={onClose}
     >
       <div
-        className="relative my-6 w-full max-w-5xl rounded-3xl border border-neutral-800 bg-neutral-950 p-4 sm:p-6 lg:p-8 shadow-2xl text-neutral-100 max-h-[92vh] overflow-y-auto"
+        className="relative my-6 w-full max-w-5xl rounded-3xl border border-neutral-200 bg-white p-5 sm:p-7 lg:p-8 shadow-2xl text-neutral-900 max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between border-b border-neutral-800 pb-4 mb-6">
+        <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-6">
           <div className="flex items-center gap-2">
-            <span className="flex h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-            <span className="text-xs font-semibold text-neutral-300">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
+            <span className="text-xs font-bold text-neutral-700 uppercase tracking-wide">
               {settings.businessName} Certified Showroom
             </span>
           </div>
@@ -142,17 +142,17 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
           <div className="flex items-center gap-2">
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 rounded-xl border border-neutral-800 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-neutral-300 hover:bg-neutral-800 hover:text-white transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 transition-colors cursor-pointer"
               title="Share car details"
             >
-              <Share2 className="h-3.5 w-3.5" />
+              <Share2 className="h-3.5 w-3.5 text-neutral-500" />
               <span>{copiedShare ? 'Link Copied!' : 'Share'}</span>
             </button>
 
             <button
               onClick={onClose}
               id="close-details-modal-btn"
-              className="rounded-xl border border-neutral-800 bg-neutral-900 p-2 text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors cursor-pointer"
+              className="rounded-xl border border-neutral-200 bg-neutral-50 p-2 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="h-5 w-5" />
@@ -166,55 +166,55 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <span className="text-xs font-extrabold uppercase tracking-widest text-red-500">
+                <span className="text-xs font-extrabold uppercase tracking-widest text-emerald-700">
                   {car.brand}
                 </span>
-                <span className="text-neutral-600">•</span>
-                <span className="text-xs font-semibold text-neutral-400">
+                <span className="text-neutral-300">•</span>
+                <span className="text-xs font-semibold text-neutral-500">
                   {car.bodyType}
                 </span>
-                <span className="text-neutral-600">•</span>
-                <span className="flex items-center gap-1 text-xs text-neutral-300">
-                  <MapPin className="h-3 w-3 text-red-500" />
+                <span className="text-neutral-300">•</span>
+                <span className="flex items-center gap-1 text-xs text-neutral-600">
+                  <MapPin className="h-3 w-3 text-emerald-600" />
                   <span>{carLocation}</span>
                 </span>
                 {car.featured && (
-                  <span className="rounded bg-red-600/20 border border-red-500/40 px-1.5 py-0.2 text-[10px] font-bold uppercase text-red-400">
+                  <span className="rounded-md bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-bold uppercase text-emerald-800">
                     Featured Pick
                   </span>
                 )}
               </div>
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 tracking-tight">
                 {car.model}
               </h2>
-              <p className="text-sm sm:text-base text-neutral-400">{car.variant}</p>
+              <p className="text-xs sm:text-sm text-neutral-500">{car.variant}</p>
             </div>
 
-            <div className="rounded-2xl border border-neutral-800 bg-neutral-900/90 p-4 min-w-[240px]">
+            <div className="rounded-2xl border border-neutral-200 bg-neutral-50/80 p-4 min-w-[240px]">
               <div className="flex items-center justify-between">
-                <p className="text-[11px] uppercase font-semibold tracking-wider text-neutral-400">
+                <p className="text-[11px] uppercase font-bold tracking-wider text-neutral-500">
                   Showroom Price
                 </p>
                 {isSold ? (
-                  <span className="rounded bg-neutral-800 border border-neutral-700 px-2 py-0.5 text-[10px] font-bold text-neutral-400 uppercase">
+                  <span className="rounded bg-neutral-200 border border-neutral-300 px-2 py-0.5 text-[10px] font-bold text-neutral-600 uppercase">
                     SOLD
                   </span>
                 ) : (
-                  <span className="rounded bg-red-600 px-2.5 py-0.5 text-[10px] font-bold text-white uppercase">
+                  <span className="rounded bg-emerald-600 px-2.5 py-0.5 text-[10px] font-bold text-white uppercase">
                     AVAILABLE
                   </span>
                 )}
               </div>
               <div className="flex items-baseline gap-2 mt-1">
-                <span className="font-display text-2xl sm:text-3xl font-black text-white">
+                <span className="font-display text-2xl sm:text-3xl font-black text-neutral-900">
                   {formatPriceLakh(car.price)}
                 </span>
               </div>
-              <p className="text-xs text-neutral-400">
+              <p className="text-xs text-neutral-500">
                 {formatIndianRupees(car.price)} (RC & Transfer Included)
               </p>
               {!isSold && (
-                <div className="mt-1 flex items-center gap-1.5 text-xs text-emerald-400 font-semibold">
+                <div className="mt-1 flex items-center gap-1.5 text-xs text-emerald-700 font-semibold">
                   <Calculator className="h-3.5 w-3.5" />
                   <span>EMI from ₹{emi.toLocaleString('en-IN')}/mo*</span>
                 </div>
@@ -224,7 +224,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
 
           {/* Large Image Gallery */}
           <div className="space-y-3">
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950">
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-100">
               {currentImage ? (
                 <img
                   src={currentImage}
@@ -232,7 +232,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                   className="h-full w-full object-cover object-center transition-all duration-300"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center text-neutral-500">
+                <div className="flex h-full w-full items-center justify-center text-neutral-400">
                   No images provided
                 </div>
               )}
@@ -261,7 +261,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
               </div>
 
               {isSold && (
-                <div className="absolute top-3 left-3 rounded-lg bg-neutral-800 border border-neutral-700 px-3.5 py-1.5 text-xs font-black uppercase text-neutral-300 shadow-xl">
+                <div className="absolute top-3 left-3 rounded-lg bg-neutral-900 border border-neutral-800 px-3.5 py-1.5 text-xs font-black uppercase text-white shadow-xl">
                   Vehicle Marked As Sold
                 </div>
               )}
@@ -276,8 +276,8 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                     onClick={() => setActiveImageIndex(idx)}
                     className={`relative h-16 w-24 sm:h-20 sm:w-28 shrink-0 overflow-hidden rounded-xl border-2 transition-all cursor-pointer ${
                       activeImageIndex === idx
-                        ? 'border-red-500 ring-2 ring-red-500/40'
-                        : 'border-neutral-800 opacity-60 hover:opacity-100'
+                        ? 'border-emerald-600 ring-2 ring-emerald-600/30'
+                        : 'border-neutral-200 opacity-60 hover:opacity-100'
                     }`}
                   >
                     <img
@@ -293,60 +293,60 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
 
           {/* Quick Specifications Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="rounded-xl border border-neutral-800 bg-neutral-900/60 p-3.5">
-              <Calendar className="h-4 w-4 text-red-500 mb-1" />
-              <p className="text-[11px] text-neutral-400">Mfg / Reg Year</p>
-              <p className="font-display text-base font-bold text-white">
+            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-3.5">
+              <Calendar className="h-4 w-4 text-emerald-600 mb-1" />
+              <p className="text-[11px] text-neutral-500 font-medium">Mfg / Reg Year</p>
+              <p className="font-display text-base font-bold text-neutral-900">
                 {mfgYear} {regYear !== mfgYear ? `(Reg ${regYear})` : ''}
               </p>
             </div>
 
-            <div className="rounded-xl border border-neutral-800 bg-neutral-900/60 p-3.5">
-              <Gauge className="h-4 w-4 text-red-500 mb-1" />
-              <p className="text-[11px] text-neutral-400">Kilometers Driven</p>
-              <p className="font-display text-base font-bold text-white">
+            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-3.5">
+              <Gauge className="h-4 w-4 text-emerald-600 mb-1" />
+              <p className="text-[11px] text-neutral-500 font-medium">Kilometers Driven</p>
+              <p className="font-display text-base font-bold text-neutral-900">
                 {formatKM(car.kilometers)}
               </p>
             </div>
 
-            <div className="rounded-xl border border-neutral-800 bg-neutral-900/60 p-3.5">
-              <Fuel className="h-4 w-4 text-red-500 mb-1" />
-              <p className="text-[11px] text-neutral-400">Fuel & Transmission</p>
-              <p className="font-display text-base font-bold text-white truncate">
+            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-3.5">
+              <Fuel className="h-4 w-4 text-emerald-600 mb-1" />
+              <p className="text-[11px] text-neutral-500 font-medium">Fuel & Transmission</p>
+              <p className="font-display text-base font-bold text-neutral-900 truncate">
                 {car.fuelType} • {car.transmission}
               </p>
             </div>
 
-            <div className="rounded-xl border border-neutral-800 bg-neutral-900/60 p-3.5">
-              <MapPin className="h-4 w-4 text-red-500 mb-1" />
-              <p className="text-[11px] text-neutral-400">Vehicle Location</p>
-              <p className="font-display text-sm sm:text-base font-bold text-white truncate">
+            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-3.5">
+              <MapPin className="h-4 w-4 text-emerald-600 mb-1" />
+              <p className="text-[11px] text-neutral-500 font-medium">Vehicle Location</p>
+              <p className="font-display text-sm sm:text-base font-bold text-neutral-900 truncate">
                 {carLocation}
               </p>
             </div>
           </div>
 
           {/* Call Now and WhatsApp Contact Action Bar */}
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-5 shadow-xl">
+          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-5 shadow-sm">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <h4 className="font-display text-base font-bold text-white">
+                <h4 className="font-display text-base font-bold text-neutral-900">
                   {isSold ? 'This Vehicle Has Been Sold' : 'Interested in this Car?'}
                 </h4>
-                <p className="text-xs text-neutral-400">
+                <p className="text-xs text-neutral-600">
                   {isSold
                     ? 'Check out our other available vehicles or contact us to source a similar model.'
                     : `Speak directly with ${settings.businessName} showroom at ${settings.phone} or enquire on WhatsApp.`}
                 </p>
                 {!isSold && (
                   <div className="flex items-center gap-4 mt-2 text-xs">
-                    <span className="flex items-center gap-1.5 text-neutral-300 font-semibold">
-                      <Phone className="h-3.5 w-3.5 text-red-500" />
-                      <span>Phone: <strong className="text-white">{settings.phone}</strong></span>
+                    <span className="flex items-center gap-1.5 text-neutral-700 font-semibold">
+                      <Phone className="h-3.5 w-3.5 text-emerald-600" />
+                      <span>Phone: <strong className="text-neutral-900">{settings.phone}</strong></span>
                     </span>
-                    <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                    <span className="flex items-center gap-1.5 text-emerald-700 font-semibold">
                       <MessageCircle className="h-3.5 w-3.5 fill-current" />
-                      <span>WhatsApp: <strong className="text-white">{settings.whatsapp}</strong></span>
+                      <span>WhatsApp: <strong className="text-neutral-900">{settings.whatsapp}</strong></span>
                     </span>
                   </div>
                 )}
@@ -354,7 +354,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
 
               <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
                 {isSold ? (
-                  <span className="rounded-xl bg-neutral-800 border border-neutral-700 px-6 py-3 text-xs font-bold text-neutral-400">
+                  <span className="rounded-xl bg-neutral-200 border border-neutral-300 px-6 py-3 text-xs font-bold text-neutral-600">
                     Vehicle Sold Out
                   </span>
                 ) : (
@@ -362,10 +362,10 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                     <a
                       href={getPhoneCallUrl(settings)}
                       id="details-call-now-btn"
-                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-700 bg-neutral-950 px-6 py-3.5 text-sm font-bold text-neutral-200 hover:border-red-600 hover:text-white transition-all active:scale-95 text-center shadow-md cursor-pointer"
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-300 bg-white px-6 py-3 text-xs sm:text-sm font-bold text-neutral-800 hover:border-emerald-600 hover:text-emerald-700 transition-all text-center shadow-xs cursor-pointer"
                       title={`Call ${settings.businessName} at ${settings.phone}`}
                     >
-                      <Phone className="h-4 w-4 text-red-500" />
+                      <Phone className="h-4 w-4 text-emerald-600" />
                       <span>Call {settings.phone}</span>
                     </a>
 
@@ -374,7 +374,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                       target="_blank"
                       rel="noopener noreferrer"
                       id="details-whatsapp-btn"
-                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-950 hover:bg-emerald-500 transition-all active:scale-95 text-center cursor-pointer"
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-xs sm:text-sm font-bold text-white shadow-md shadow-emerald-600/20 hover:bg-emerald-700 transition-all text-center cursor-pointer"
                       title={`Direct WhatsApp chat with ${settings.businessName} at ${settings.whatsapp}`}
                     >
                       <MessageCircle className="h-4 w-4 fill-current" />
@@ -389,60 +389,60 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
           {/* Detailed Specifications & Description */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Complete Technical Specifications */}
-            <div className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5">
-              <h3 className="font-display text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <FileText className="h-4 w-4 text-red-500" />
+            <div className="rounded-2xl border border-neutral-200 bg-neutral-50/70 p-5">
+              <h3 className="font-display text-lg font-bold text-neutral-900 mb-4 flex items-center gap-2">
+                <FileText className="h-4 w-4 text-emerald-600" />
                 <span>Complete Specifications</span>
               </h3>
 
-              <div className="divide-y divide-neutral-800 text-xs sm:text-sm">
+              <div className="divide-y divide-neutral-200/80 text-xs sm:text-sm">
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Brand & Model</span>
-                  <span className="font-semibold text-white">{car.brand} {car.model}</span>
+                  <span className="text-neutral-500">Brand & Model</span>
+                  <span className="font-semibold text-neutral-900">{car.brand} {car.model}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Variant</span>
-                  <span className="font-semibold text-white">{car.variant}</span>
+                  <span className="text-neutral-500">Variant</span>
+                  <span className="font-semibold text-neutral-900">{car.variant}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Manufacturing Year</span>
-                  <span className="font-semibold text-white">{mfgYear}</span>
+                  <span className="text-neutral-500">Manufacturing Year</span>
+                  <span className="font-semibold text-neutral-900">{mfgYear}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Registration Year</span>
-                  <span className="font-semibold text-white">{regYear}</span>
+                  <span className="text-neutral-500">Registration Year</span>
+                  <span className="font-semibold text-neutral-900">{regYear}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">RTO / District</span>
-                  <span className="font-semibold text-white">{car.registrationState}</span>
+                  <span className="text-neutral-500">RTO / District</span>
+                  <span className="font-semibold text-neutral-900">{car.registrationState}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Registration Plate Code</span>
-                  <span className="font-semibold text-red-400 font-mono">{car.rtoCode}</span>
+                  <span className="text-neutral-500">Registration Plate Code</span>
+                  <span className="font-semibold text-emerald-700 font-mono">{car.rtoCode}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Engine Displacement</span>
-                  <span className="font-semibold text-white">{car.engine}</span>
+                  <span className="text-neutral-500">Engine Displacement</span>
+                  <span className="font-semibold text-neutral-900">{car.engine}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Certified Mileage</span>
-                  <span className="font-semibold text-white">{car.mileage}</span>
+                  <span className="text-neutral-500">Certified Mileage</span>
+                  <span className="font-semibold text-neutral-900">{car.mileage}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Ownership</span>
-                  <span className="font-semibold text-white">{car.owners}</span>
+                  <span className="text-neutral-500">Ownership</span>
+                  <span className="font-semibold text-neutral-900">{car.owners}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Exterior Color</span>
-                  <span className="font-semibold text-white">{car.color}</span>
+                  <span className="text-neutral-500">Exterior Color</span>
+                  <span className="font-semibold text-neutral-900">{car.color}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Insurance Status</span>
-                  <span className="font-semibold text-emerald-400">{car.insuranceValidity}</span>
+                  <span className="text-neutral-500">Insurance Status</span>
+                  <span className="font-semibold text-emerald-700">{car.insuranceValidity}</span>
                 </div>
                 <div className="flex justify-between py-2.5">
-                  <span className="text-neutral-400">Showroom Location</span>
-                  <span className="font-semibold text-red-400">{carLocation}</span>
+                  <span className="text-neutral-500">Showroom Location</span>
+                  <span className="font-semibold text-emerald-700">{carLocation}</span>
                 </div>
               </div>
             </div>
@@ -450,31 +450,31 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
             {/* Description & Features */}
             <div className="space-y-6">
               {/* Detailed Description */}
-              <div className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5">
-                <h3 className="font-display text-lg font-bold text-white mb-3">
+              <div className="rounded-2xl border border-neutral-200 bg-neutral-50/70 p-5">
+                <h3 className="font-display text-lg font-bold text-neutral-900 mb-3">
                   Vehicle Description & History
                 </h3>
-                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed whitespace-pre-line">
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed whitespace-pre-line">
                   {car.description}
                 </p>
 
-                <div className="mt-4 pt-4 border-t border-neutral-800 flex items-center gap-2 text-xs text-neutral-300">
-                  <MapPin className="h-4 w-4 text-red-500 shrink-0" />
+                <div className="mt-4 pt-4 border-t border-neutral-200 flex items-center gap-2 text-xs text-neutral-700">
+                  <MapPin className="h-4 w-4 text-emerald-600 shrink-0" />
                   <span>Available for inspection at <strong>{carLocation}</strong></span>
                 </div>
               </div>
 
               {/* Key Features List */}
               {car.features && car.features.length > 0 && (
-                <div className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5">
-                  <h3 className="font-display text-base font-bold text-white mb-3 flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 text-red-500" />
+                <div className="rounded-2xl border border-neutral-200 bg-neutral-50/70 p-5">
+                  <h3 className="font-display text-base font-bold text-neutral-900 mb-3 flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-emerald-600" />
                     <span>Included Equipment & Features</span>
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-300">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-700">
                     {car.features.map((feat, idx) => (
                       <div key={idx} className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-red-500 shrink-0" />
+                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                         <span>{feat}</span>
                       </div>
                     ))}
@@ -485,24 +485,24 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
           </div>
 
           {/* EMI Loan Calculator */}
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-5 sm:p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-800 pb-4 mb-5">
+          <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-5 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-neutral-200 pb-4 mb-5">
               <div>
-                <h3 className="font-display text-lg font-bold text-white flex items-center gap-2">
-                  <Calculator className="h-5 w-5 text-red-500" />
+                <h3 className="font-display text-lg font-bold text-neutral-900 flex items-center gap-2">
+                  <Calculator className="h-5 w-5 text-emerald-600" />
                   <span>Used Car Loan EMI Calculator</span>
                 </h3>
-                <p className="text-xs text-neutral-400">
+                <p className="text-xs text-neutral-500">
                   Financing options available through SBI, HDFC, ICICI, and Sundaram Finance.
                 </p>
               </div>
 
-              <div className="rounded-xl bg-red-600/10 border border-red-500/30 px-4 py-2 text-right">
-                <span className="text-[10px] text-neutral-400 uppercase font-semibold block">Monthly EMI</span>
-                <span className="font-display text-xl font-black text-red-400">
+              <div className="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-2 text-right">
+                <span className="text-[10px] text-neutral-500 uppercase font-bold block">Monthly EMI</span>
+                <span className="font-display text-xl font-black text-emerald-800">
                   ₹{emi.toLocaleString('en-IN')}
                 </span>
-                <span className="text-[10px] text-neutral-400"> / month*</span>
+                <span className="text-[10px] text-neutral-500"> / month*</span>
               </div>
             </div>
 
@@ -510,8 +510,8 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
               {/* Down Payment Slider */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs">
-                  <span className="text-neutral-400">Down Payment ({downPaymentPercent}%)</span>
-                  <span className="font-bold text-white">{formatIndianRupees(downPaymentAmount)}</span>
+                  <span className="text-neutral-500">Down Payment ({downPaymentPercent}%)</span>
+                  <span className="font-bold text-neutral-900">{formatIndianRupees(downPaymentAmount)}</span>
                 </div>
                 <input
                   type="range"
@@ -520,7 +520,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                   step="5"
                   value={downPaymentPercent}
                   onChange={(e) => setDownPaymentPercent(Number(e.target.value))}
-                  className="w-full accent-red-600 h-2 bg-neutral-800 rounded-lg cursor-pointer"
+                  className="w-full accent-emerald-600 h-2 bg-neutral-200 rounded-lg cursor-pointer"
                 />
                 <div className="flex justify-between text-[10px] text-neutral-500">
                   <span>10% (Min)</span>
@@ -531,7 +531,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
 
               {/* Tenure Selection */}
               <div className="space-y-2">
-                <span className="block text-xs text-neutral-400">Loan Tenure (Months)</span>
+                <span className="block text-xs text-neutral-500">Loan Tenure (Months)</span>
                 <div className="grid grid-cols-4 gap-2">
                   {[24, 36, 48, 60].map((t) => (
                     <button
@@ -540,8 +540,8 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                       onClick={() => setTenureMonths(t)}
                       className={`rounded-xl py-2 text-xs font-bold transition-all cursor-pointer ${
                         tenureMonths === t
-                          ? 'bg-red-600 text-white shadow-md'
-                          : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
+                          ? 'bg-emerald-600 text-white shadow-xs'
+                          : 'bg-white border border-neutral-200 text-neutral-700 hover:bg-neutral-100'
                       }`}
                     >
                       {t / 12} Yrs ({t}m)
@@ -556,57 +556,57 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
           </div>
 
           {/* Customer Enquiry Form */}
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/80 p-5 sm:p-7 shadow-lg">
+          <div className="rounded-2xl border border-neutral-200 bg-neutral-50/70 p-5 sm:p-7 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
               <div>
-                <h3 className="font-display text-lg font-bold text-white flex items-center gap-2">
-                  <MessageCircle className="h-5 w-5 text-red-500" />
+                <h3 className="font-display text-lg font-bold text-neutral-900 flex items-center gap-2">
+                  <MessageCircle className="h-5 w-5 text-emerald-600" />
                   <span>Enquire About This Vehicle</span>
                 </h3>
-                <p className="text-xs text-neutral-400 mt-0.5">
+                <p className="text-xs text-neutral-500 mt-0.5">
                   Send your enquiry directly to the AM Cars Ambai sales team for best price, test drive, or financing.
                 </p>
               </div>
-              <div className="flex items-center gap-1 text-[11px] text-red-400 font-medium bg-red-950/40 px-2.5 py-1 rounded-lg border border-red-500/30 w-fit">
-                <ShieldCheck className="h-3.5 w-3.5" />
+              <div className="flex items-center gap-1 text-[11px] text-emerald-800 font-semibold bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 w-fit">
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
                 <span>Verified Direct Desk</span>
               </div>
             </div>
 
             {/* Selected Car Badge */}
-            <div className="mb-5 rounded-xl bg-neutral-950 border border-neutral-800 p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="mb-5 rounded-2xl bg-white border border-neutral-200 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-600/10 text-red-400 border border-red-500/20">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-200">
                   <CarIcon className="h-4 w-4" />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-red-400 block">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-700 block">
                     Selected Vehicle
                   </span>
-                  <span className="font-display text-sm font-bold text-white truncate block">
+                  <span className="font-display text-sm font-bold text-neutral-900 truncate block">
                     {selectedCarName}
                   </span>
                 </div>
               </div>
               <div className="text-left sm:text-right shrink-0">
-                <span className="text-[10px] text-neutral-400 uppercase font-semibold block">Asking Price</span>
-                <span className="font-display text-sm sm:text-base font-extrabold text-white">
+                <span className="text-[10px] text-neutral-500 uppercase font-semibold block">Asking Price</span>
+                <span className="font-display text-sm sm:text-base font-extrabold text-neutral-900">
                   {formatPriceLakh(car.price)}
                 </span>
               </div>
             </div>
 
             {enquirySuccess ? (
-              <div className="rounded-2xl border border-emerald-500/40 bg-emerald-950/30 p-6 text-center space-y-3 animate-in fade-in duration-300">
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              <div className="rounded-2xl border border-emerald-300 bg-emerald-50 p-6 text-center space-y-3 animate-in fade-in duration-300">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
                   <CheckCircle2 className="h-7 w-7" />
                 </div>
                 <div>
-                  <h4 className="font-display text-base sm:text-lg font-bold text-white">
+                  <h4 className="font-display text-base sm:text-lg font-bold text-neutral-900">
                     Enquiry Submitted Successfully!
                   </h4>
-                  <p className="text-xs text-neutral-300 max-w-md mx-auto mt-1 leading-relaxed">
-                    Thank you, <strong className="text-white">{enquiryName}</strong>. Your enquiry for <strong className="text-red-400">{selectedCarName}</strong> has been received by our Ambai showroom team. We will call you on <strong className="text-white">+91 {enquiryPhone}</strong> shortly.
+                  <p className="text-xs text-neutral-600 max-w-md mx-auto mt-1 leading-relaxed">
+                    Thank you, <strong className="text-neutral-900">{enquiryName}</strong>. Your enquiry for <strong className="text-emerald-700">{selectedCarName}</strong> has been received by our Ambai showroom team. We will call you on <strong className="text-neutral-900">+91 {enquiryPhone}</strong> shortly.
                   </p>
                 </div>
 
@@ -615,7 +615,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                     href={getCarWhatsAppUrl(car, settings)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 px-4 py-2.5 text-xs font-bold text-white shadow-md transition-all active:scale-95"
+                    className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all"
                   >
                     <MessageCircle className="h-4 w-4 fill-current" />
                     <span>Chat on WhatsApp Now</span>
@@ -626,14 +626,14 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                       setEnquirySuccess(false);
                       setEnquiryMessage('');
                     }}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-neutral-700 bg-neutral-800 px-4 py-2.5 text-xs font-semibold text-neutral-200 hover:bg-neutral-700 transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 transition-colors cursor-pointer"
                   >
                     <span>Submit Another Enquiry</span>
                   </button>
                 </div>
 
                 <p className="text-[11px] text-neutral-500 flex items-center justify-center gap-1">
-                  <Lock className="h-3 w-3" />
+                  <Lock className="h-3 w-3 text-emerald-600" />
                   <span>Your enquiry is private and visible only to AM Cars Ambai authorized showroom staff.</span>
                 </p>
               </div>
@@ -642,8 +642,8 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {/* Customer Name */}
                   <div className="space-y-1">
-                    <label className="block text-xs font-semibold text-neutral-300">
-                      Customer Name <span className="text-red-500">*</span>
+                    <label className="block text-xs font-semibold text-neutral-700">
+                      Customer Name <span className="text-emerald-600">*</span>
                     </label>
                     <input
                       type="text"
@@ -651,17 +651,17 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                       placeholder="e.g. Arumugam Pillai"
                       value={enquiryName}
                       onChange={(e) => setEnquiryName(e.target.value)}
-                      className="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:border-red-500 focus:outline-none"
+                      className="w-full rounded-xl border border-neutral-200 bg-white px-3.5 py-2.5 text-xs text-neutral-900 placeholder-neutral-400 focus:border-emerald-600 focus:outline-none"
                     />
                   </div>
 
                   {/* Phone Number */}
                   <div className="space-y-1">
-                    <label className="block text-xs font-semibold text-neutral-300">
-                      Phone Number (10 digits) <span className="text-red-500">*</span>
+                    <label className="block text-xs font-semibold text-neutral-700">
+                      Phone Number (10 digits) <span className="text-emerald-600">*</span>
                     </label>
                     <div className="relative flex items-center">
-                      <span className="absolute left-3 text-xs font-semibold text-neutral-400">
+                      <span className="absolute left-3 text-xs font-bold text-neutral-400">
                         +91
                       </span>
                       <input
@@ -675,11 +675,11 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                           setEnquiryPhone(val);
                           if (enquiryPhoneError) setEnquiryPhoneError(null);
                         }}
-                        className="w-full rounded-xl border border-neutral-700 bg-neutral-950 pl-11 pr-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:border-red-500 focus:outline-none"
+                        className="w-full rounded-xl border border-neutral-200 bg-white pl-11 pr-3.5 py-2.5 text-xs text-neutral-900 placeholder-neutral-400 focus:border-emerald-600 focus:outline-none"
                       />
                     </div>
                     {enquiryPhoneError && (
-                      <p className="text-[11px] text-red-400">{enquiryPhoneError}</p>
+                      <p className="text-[11px] text-red-600 font-medium">{enquiryPhoneError}</p>
                     )}
                   </div>
                 </div>
@@ -687,10 +687,10 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                 {/* Message */}
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="block text-xs font-semibold text-neutral-300">
-                      Message <span className="text-neutral-500 font-normal">(Optional questions or preferences)</span>
+                    <label className="block text-xs font-semibold text-neutral-700">
+                      Message <span className="text-neutral-400 font-normal">(Optional questions or preferences)</span>
                     </label>
-                    <span className="text-[10px] text-neutral-500">
+                    <span className="text-[10px] text-neutral-400">
                       Quick suggestions below
                     </span>
                   </div>
@@ -699,7 +699,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                     placeholder="e.g. I would like to schedule a test drive this weekend and check the RC / insurance documents."
                     value={enquiryMessage}
                     onChange={(e) => setEnquiryMessage(e.target.value)}
-                    className="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:border-red-500 focus:outline-none resize-none"
+                    className="w-full rounded-xl border border-neutral-200 bg-white px-3.5 py-2.5 text-xs text-neutral-900 placeholder-neutral-400 focus:border-emerald-600 focus:outline-none resize-none"
                   />
 
                   {/* Quick suggestions */}
@@ -721,7 +721,7 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                             setEnquiryMessage(`${enquiryMessage}. ${suggestion}`);
                           }
                         }}
-                        className="rounded-lg bg-neutral-950 border border-neutral-800 hover:border-red-500/50 hover:text-red-300 px-2.5 py-1 text-[11px] text-neutral-400 transition-colors cursor-pointer"
+                        className="rounded-lg bg-white border border-neutral-200 hover:border-emerald-500 hover:text-emerald-700 px-2.5 py-1 text-[11px] text-neutral-600 transition-colors cursor-pointer"
                       >
                         + {suggestion}
                       </button>
@@ -731,15 +731,15 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
 
                 {/* Submit button & Privacy info */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
-                  <div className="flex items-center gap-1.5 text-[11px] text-neutral-400">
-                    <Lock className="h-3.5 w-3.5 text-red-500" />
+                  <div className="flex items-center gap-1.5 text-[11px] text-neutral-500">
+                    <Lock className="h-3.5 w-3.5 text-emerald-600" />
                     <span>Details sent securely to AM Cars showroom staff only</span>
                   </div>
 
                   <button
                     type="submit"
                     disabled={submittingEnquiry}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 hover:bg-red-500 px-6 py-2.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-lg shadow-red-950/40 transition-all active:scale-95 cursor-pointer disabled:opacity-50"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-emerald-600/25 transition-all cursor-pointer disabled:opacity-50"
                   >
                     <Send className="h-3.5 w-3.5" />
                     <span>{submittingEnquiry ? 'Sending Enquiry...' : 'SUBMIT ENQUIRY'}</span>
@@ -750,11 +750,11 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
           </div>
 
           {/* Dealership Showroom Contact Card */}
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900 p-5 sm:p-6 shadow-xl">
+          <div className="rounded-2xl border border-neutral-200 bg-neutral-900 text-white p-5 sm:p-6 shadow-xl">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1.5">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-red-500" />
+                  <ShieldCheck className="h-4 w-4 text-emerald-400" />
                   <span className="font-display text-sm font-bold text-white uppercase tracking-wider">
                     {settings.businessName} • Official Dealership Desk
                   </span>
@@ -766,11 +766,11 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
                   <span className="text-neutral-300">
                     <strong className="text-white">Phone:</strong> {settings.phone}
                   </span>
-                  <span className="text-neutral-500">•</span>
+                  <span className="text-neutral-600">•</span>
                   <span className="text-neutral-300">
                     <strong className="text-white">WhatsApp:</strong> {settings.whatsapp}
                   </span>
-                  <span className="text-neutral-500">•</span>
+                  <span className="text-neutral-600">•</span>
                   <span className="text-neutral-400">
                     {settings.businessHoursWeekdays}
                   </span>
@@ -780,16 +780,16 @@ export const CarDetailsModal: React.FC<CarDetailsModalProps> = ({ car, onClose }
               <div className="flex items-center gap-2.5 shrink-0">
                 <a
                   href={getPhoneCallUrl(settings)}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-2.5 text-xs font-bold text-neutral-200 hover:text-white hover:border-red-600 transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-700 bg-neutral-800 px-4 py-2.5 text-xs font-bold text-neutral-200 hover:text-white hover:border-neutral-500 transition-all cursor-pointer"
                 >
-                  <Phone className="h-3.5 w-3.5 text-red-500" />
+                  <Phone className="h-3.5 w-3.5 text-emerald-400" />
                   <span>Call {settings.phone}</span>
                 </a>
                 <a
                   href={getCarWhatsAppUrl(car, settings)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-emerald-500 transition-all cursor-pointer shadow-md"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-emerald-700 transition-all cursor-pointer shadow-md"
                 >
                   <MessageCircle className="h-3.5 w-3.5 fill-current" />
                   <span>WhatsApp: {settings.whatsapp}</span>

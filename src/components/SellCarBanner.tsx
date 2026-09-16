@@ -26,46 +26,40 @@ export const SellCarBanner: React.FC = () => {
     {
       step: '03',
       title: 'Private Brokerage',
-      desc: 'Your name and personal phone number remain 100% confidential. No spam calls.',
+      desc: 'Your name and personal phone number remain 100% confidential. Zero public spam.',
       icon: ShieldCheck,
     },
     {
       step: '04',
       title: 'Instant Payment',
-      desc: 'Direct payment to your bank upon sale with verified legal RC name transfer.',
+      desc: 'Direct payment upon sale with verified legal RTO ownership name transfer.',
       icon: UserCheck,
     },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-neutral-950 py-16 sm:py-24 border-b border-neutral-900">
-      {/* Background ambient lighting */}
-      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-        <div className="absolute -bottom-20 -left-20 h-96 w-96 rounded-full bg-red-600/30 blur-3xl" />
-        <div className="absolute top-0 right-10 h-72 w-72 rounded-full bg-neutral-800/40 blur-3xl" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-neutral-800 bg-gradient-to-b from-neutral-900/80 to-neutral-950 p-8 sm:p-12 lg:p-14 backdrop-blur-xl shadow-2xl">
+    <section className="bg-slate-50/80 py-16 sm:py-24 border-b border-neutral-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-3xl border border-neutral-200 bg-white p-8 sm:p-12 lg:p-14 shadow-lg">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full border border-red-600/40 bg-red-600/10 px-4 py-1.5 text-xs font-bold text-red-400">
-              <Sparkles className="h-3.5 w-3.5 text-red-500" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-xs font-bold text-emerald-800">
+              <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
               <span>Hassle-Free Direct Brokerage</span>
             </div>
 
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight uppercase">
-              SELL YOUR CAR WITH <span className="text-red-500">AM CARS</span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 tracking-tight uppercase">
+              Sell Your Car with <span className="text-emerald-600">AM Cars</span>
             </h2>
 
-            <p className="text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto leading-relaxed">
-              Skip the frustration of public classified ads, lowball dealer offers, and endless nuisance calls. AM Cars Ambai connects your vehicle to verified serious buyers across Tamil Nadu while keeping your identity private.
+            <p className="text-sm sm:text-base text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+              Skip the frustration of public classified ads, lowball dealer offers, and endless nuisance calls. AM Cars Ambai connects your vehicle directly to verified serious buyers across Tamil Nadu while keeping your identity private.
             </p>
 
             <div className="pt-2">
               <button
                 id="sell-banner-cta-btn"
                 onClick={handleSellClick}
-                className="inline-flex items-center gap-2.5 rounded-xl bg-red-600 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-red-600/30 hover:bg-red-500 transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
+                className="inline-flex items-center gap-2.5 rounded-2xl bg-emerald-600 px-8 py-4 text-sm font-bold text-white shadow-md shadow-emerald-600/25 hover:bg-emerald-700 transition-all active:scale-95 cursor-pointer uppercase tracking-wider"
               >
                 <span>SELL YOUR CAR</span>
                 <ArrowRight className="h-4 w-4 stroke-[2.5]" />
@@ -74,31 +68,36 @@ export const SellCarBanner: React.FC = () => {
           </div>
 
           {/* 4 Process Steps */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4 border-t border-neutral-800/80">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-6 border-t border-neutral-100">
             {steps.map((s, idx) => {
               const Icon = s.icon;
               return (
-                <div
-                  key={idx}
-                  className="rounded-2xl border border-neutral-800 bg-neutral-950/60 p-5 backdrop-blur hover:border-red-600/40 transition-colors group"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-display text-2xl font-black text-neutral-600 group-hover:text-red-500/80 transition-colors">
+                <div key={idx} className="relative rounded-2xl border border-neutral-100 bg-neutral-50/60 p-5 hover:bg-white hover:border-emerald-200 transition-all">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-display text-2xl font-black text-emerald-600/40">
                       {s.step}
                     </span>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-neutral-900 border border-neutral-800 text-red-400 group-hover:border-red-500/40">
-                      <Icon className="h-5 w-5" />
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                      <Icon className="h-4 w-4" />
                     </div>
                   </div>
-                  <h3 className="font-display text-base font-bold text-white mb-1.5">
+                  <h4 className="font-display text-sm font-bold text-neutral-900 mb-1">
                     {s.title}
-                  </h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed">
+                  </h4>
+                  <p className="text-xs text-neutral-500 leading-relaxed">
                     {s.desc}
                   </p>
                 </div>
               );
             })}
+          </div>
+
+          {/* Privacy Guarantee Note */}
+          <div className="mt-8 flex items-center justify-center gap-2 text-xs text-neutral-500 text-center">
+            <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
+            <span>
+              <strong>100% Privacy Assurance:</strong> Your contact number is strictly confidential and never displayed publicly.
+            </span>
           </div>
         </div>
       </div>

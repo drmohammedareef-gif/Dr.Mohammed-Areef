@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Car as CarIcon, 
   Phone, 
   MessageCircle, 
   Menu, 
@@ -8,11 +7,13 @@ import {
   ShieldCheck, 
   SlidersHorizontal,
   MapPin,
-  Sparkles
+  Sparkles,
+  ArrowRight
 } from 'lucide-react';
 import { useCars } from '../context/CarContext';
 import { getGeneralWhatsAppUrl, getPhoneCallUrl } from '../utils/formatters';
 import { ActivePage } from '../types';
+import { AmCarsLogo } from './AmCarsLogo';
 
 export const Navbar: React.FC = () => {
   const { activePage, setActivePage, cars, settings, pendingCount, adminLoggedIn } = useCars();
@@ -28,8 +29,6 @@ export const Navbar: React.FC = () => {
     { id: 'contact', label: 'Contact' },
   ];
 
-  // The Admin Dashboard must NOT be visible as a normal public navigation item.
-  // Only display to authenticated admin users when signed in.
   const navItems = adminLoggedIn
     ? [
         ...publicNavItems,
@@ -44,61 +43,44 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-neutral-800/80 bg-neutral-950/95 backdrop-blur-xl transition-colors">
-      {/* Top micro showroom announcement bar */}
-      <div className="hidden sm:block border-b border-neutral-900 bg-neutral-950 px-4 py-2 text-xs text-neutral-400">
+    <header className="sticky top-0 z-40 w-full border-b border-neutral-200/80 bg-white/95 backdrop-blur-md transition-all shadow-xs">
+      {/* Top showroom micro announcement bar */}
+      <div className="hidden sm:block border-b border-neutral-100 bg-neutral-50/90 px-4 py-2 text-xs text-neutral-600">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center gap-1.5 text-neutral-300">
-              <MapPin className="h-3.5 w-3.5 text-red-500" />
-              <span>{settings.shortAddress}</span>
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <span className="flex items-center gap-1.5 font-medium text-neutral-700">
+              <MapPin className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+              <span>{settings.shortAddress}, Tamil Nadu</span>
             </span>
-            <span className="text-neutral-800">•</span>
-            <span className="text-neutral-400">{settings.businessHoursWeekdays}</span>
+            <span className="text-neutral-300">•</span>
+            <span className="text-neutral-500">{settings.businessHoursWeekdays}</span>
           </div>
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center gap-1.5 text-neutral-300">
-              <ShieldCheck className="h-3.5 w-3.5 text-red-500" />
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <span className="flex items-center gap-1.5 text-neutral-600">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
               <span>150-Point Certified Inspection Guarantee</span>
             </span>
-            <span className="text-neutral-800">•</span>
+            <span className="text-neutral-300">•</span>
             <a
               href={getPhoneCallUrl(settings)}
-              className="flex items-center gap-1.5 text-neutral-300 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 font-semibold text-neutral-800 hover:text-emerald-700 transition-colors"
             >
-              <Phone className="h-3 w-3 text-red-500" />
-              <span className="font-semibold text-white">{settings.phone}</span>
+              <Phone className="h-3 w-3 text-emerald-600" />
+              <span>{settings.phone}</span>
             </a>
           </div>
         </div>
       </div>
 
       {/* Main navigation */}
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <button
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-3 text-left focus:outline-none group cursor-pointer"
+          className="flex items-center text-left focus:outline-none group cursor-pointer"
+          aria-label="AM CARS AMBAI Home"
         >
-          <div className="relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl bg-gradient-to-br from-red-600 to-red-800 text-white shadow-lg shadow-red-900/30 group-hover:scale-105 transition-transform border border-red-500/30">
-            <CarIcon className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.2]" />
-            <span className="absolute -bottom-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-red-500 ring-2 ring-neutral-950">
-              <span className="h-1.5 w-1.5 rounded-full bg-white animate-ping" />
-            </span>
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-display text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-red-400 transition-colors">
-                AM CARS
-              </span>
-              <span className="rounded bg-red-600/20 border border-red-500/40 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-red-400">
-                AMBAI
-              </span>
-            </div>
-            <p className="text-[10px] sm:text-[11px] text-neutral-400 font-medium hidden xs:block tracking-wide uppercase">
-              Automotive Showroom
-            </p>
-          </div>
+          <AmCarsLogo size="md" lightMode={true} />
         </button>
 
         {/* Desktop Nav Links */}
@@ -113,14 +95,14 @@ export const Navbar: React.FC = () => {
                   key={item.id}
                   id="nav-sell-your-car-btn"
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer border shadow-sm ${
+                  className={`relative px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer border ${
                     isActive
-                      ? 'bg-red-600 text-white border-red-500 shadow-red-900/30 scale-105'
-                      : 'bg-red-600/15 border-red-600/40 text-red-300 hover:bg-red-600 hover:text-white'
+                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm shadow-emerald-600/30 scale-105'
+                      : 'bg-emerald-50 border-emerald-200 text-emerald-800 hover:bg-emerald-600 hover:text-white hover:border-emerald-600'
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
-                    <Sparkles className="h-3.5 w-3.5 text-red-400 group-hover:text-white" />
+                    <Sparkles className="h-3.5 w-3.5 text-emerald-500 group-hover:text-white" />
                     <span>Sell Your Car</span>
                   </span>
                 </button>
@@ -131,25 +113,25 @@ export const Navbar: React.FC = () => {
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`relative px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                className={`relative px-3.5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'text-white bg-neutral-900 border border-neutral-800 shadow-inner'
-                    : 'text-neutral-300 hover:text-white hover:bg-neutral-900/60'
+                    ? 'text-neutral-950 bg-neutral-100 font-bold'
+                    : 'text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50'
                 }`}
               >
                 <span className="flex items-center gap-2">
                   {item.id === 'admin' && (
-                    <SlidersHorizontal className="h-3.5 w-3.5 text-red-400" />
+                    <SlidersHorizontal className="h-3.5 w-3.5 text-emerald-600" />
                   )}
                   {item.label}
                   {item.badge !== undefined && (
-                    <span className="rounded-full bg-red-600/20 border border-red-500/40 px-2 py-0.2 text-[10px] font-bold text-red-300">
+                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800">
                       {item.badge}
                     </span>
                   )}
                 </span>
                 {isActive && (
-                  <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-red-600 shadow-sm shadow-red-500" />
+                  <span className="absolute bottom-1 left-3.5 right-3.5 h-[2px] rounded-full bg-emerald-600" />
                 )}
               </button>
             );
@@ -162,10 +144,10 @@ export const Navbar: React.FC = () => {
           <a
             href={getPhoneCallUrl(settings)}
             id="nav-call-btn"
-            className="flex items-center gap-2 rounded-xl border border-neutral-800 bg-neutral-900/90 px-3.5 py-2 text-xs font-bold text-neutral-200 hover:border-red-600/40 hover:bg-neutral-800 hover:text-white transition-all shadow-sm"
+            className="flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-3.5 py-2 text-xs font-bold text-neutral-700 hover:border-emerald-500 hover:text-emerald-700 transition-all shadow-xs"
             title={`Call ${settings.businessName}`}
           >
-            <Phone className="h-3.5 w-3.5 text-red-500" />
+            <Phone className="h-3.5 w-3.5 text-emerald-600" />
             <span className="hidden lg:inline">{settings.phone}</span>
             <span className="lg:hidden">{settings.phone}</span>
           </a>
@@ -176,27 +158,27 @@ export const Navbar: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             id="nav-whatsapp-btn"
-            className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-md shadow-emerald-950/50 hover:bg-emerald-500 transition-all active:scale-95"
+            className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-sm shadow-emerald-600/30 hover:bg-emerald-700 transition-all active:scale-95"
           >
             <MessageCircle className="h-3.5 w-3.5 fill-current" />
-            <span>WhatsApp Us</span>
+            <span>WhatsApp</span>
           </a>
         </div>
 
-        {/* Mobile menu button */}
+        {/* Mobile menu and WhatsApp button */}
         <div className="flex items-center gap-2 md:hidden">
           <a
             href={getGeneralWhatsAppUrl('', settings)}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-sm"
+            className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-xs"
             aria-label="WhatsApp enquiry"
           >
             <MessageCircle className="h-4 w-4 fill-current" />
           </a>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900 text-neutral-300 hover:text-white"
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-neutral-200 bg-white text-neutral-700 hover:text-neutral-950 focus:outline-none"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -204,60 +186,34 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="border-b border-neutral-800 bg-neutral-950 px-4 py-4 md:hidden animate-in slide-in-from-top-2 duration-200">
-          <div className="space-y-1 pb-3">
+        <div className="border-t border-neutral-200/80 bg-white px-4 py-5 shadow-lg md:hidden animate-in slide-in-from-top-2 duration-200">
+          <div className="space-y-1.5">
             {navItems.map((item) => {
-              const isSell = item.id === 'sell';
               const isActive = activePage === item.id;
-
-              if (isSell) {
-                return (
-                  <button
-                    key={item.id}
-                    id="mobile-nav-sell-btn"
-                    onClick={() => handleNavClick(item.id)}
-                    className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-bold transition-all border my-1 cursor-pointer ${
-                      isActive
-                        ? 'bg-red-600 text-white border-red-500 shadow-md shadow-red-600/30'
-                        : 'bg-red-600/15 border-red-600/40 text-red-300 hover:bg-red-600 hover:text-white'
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-red-400" />
-                      <span>Sell Your Car</span>
-                    </span>
-                    <span className="text-[10px] uppercase font-extrabold bg-red-500/30 px-2 py-0.5 rounded-full text-red-200">
-                      Instant Valuation
-                    </span>
-                  </button>
-                );
-              }
+              const isSell = item.id === 'sell';
 
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`flex w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-sm font-semibold transition-colors cursor-pointer ${
-                    isActive
-                      ? 'bg-neutral-900 text-red-400 border border-neutral-800'
-                      : 'text-neutral-300 hover:bg-neutral-900 hover:text-white'
+                  className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold transition-colors text-left ${
+                    isSell
+                      ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
+                      : isActive
+                      ? 'bg-neutral-100 text-neutral-950 font-bold border-l-4 border-emerald-600'
+                      : 'text-neutral-700 hover:bg-neutral-50 hover:text-neutral-950'
                   }`}
                 >
-                  <span className="flex items-center gap-2">
-                    {item.id === 'admin' && (
-                      <SlidersHorizontal className="h-4 w-4 text-neutral-400" />
-                    )}
-                    {item.label}
+                  <span className="flex items-center gap-2.5">
+                    {item.id === 'sell' && <Sparkles className="h-4 w-4 text-emerald-600" />}
+                    {item.id === 'admin' && <SlidersHorizontal className="h-4 w-4 text-emerald-600" />}
+                    <span>{item.label}</span>
                   </span>
                   {item.badge !== undefined && (
-                    <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${
-                      item.id === 'admin' 
-                        ? 'bg-red-600 text-white font-bold' 
-                        : 'bg-red-600/20 text-red-300 border border-red-500/40'
-                    }`}>
-                      {item.badge} {item.id === 'admin' ? 'Pending' : 'Cars'}
+                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-bold text-emerald-800">
+                      {item.badge}
                     </span>
                   )}
                 </button>
@@ -265,22 +221,23 @@ export const Navbar: React.FC = () => {
             })}
           </div>
 
-          <div className="border-t border-neutral-900 pt-3 space-y-2">
+          {/* Mobile Direct Action Hotlines */}
+          <div className="mt-5 grid grid-cols-2 gap-2.5 pt-4 border-t border-neutral-100">
             <a
               href={getPhoneCallUrl(settings)}
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-800 bg-neutral-900 px-4 py-2.5 text-sm font-bold text-neutral-200 hover:bg-neutral-800"
+              className="flex items-center justify-center gap-2 rounded-xl border border-neutral-200 bg-neutral-50 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-100"
             >
-              <Phone className="h-4 w-4 text-red-500" />
-              <span>Call: {settings.phone}</span>
+              <Phone className="h-3.5 w-3.5 text-emerald-600" />
+              <span>Call Now</span>
             </a>
             <a
               href={getGeneralWhatsAppUrl('', settings)}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-emerald-500"
+              className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-xs font-bold text-white hover:bg-emerald-700 shadow-sm shadow-emerald-600/20"
             >
-              <MessageCircle className="h-4 w-4 fill-current" />
-              <span>WhatsApp: {settings.whatsapp}</span>
+              <MessageCircle className="h-3.5 w-3.5 fill-current" />
+              <span>WhatsApp</span>
             </a>
           </div>
         </div>

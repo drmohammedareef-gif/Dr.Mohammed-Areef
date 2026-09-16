@@ -15,7 +15,10 @@ import { Hero } from './components/Hero';
 import { CarCard } from './components/CarCard';
 import { CarFilters } from './components/CarFilters';
 import { CarDetailsModal } from './components/CarDetailsModal';
+import { QuickStats } from './components/QuickStats';
+import { BrandSelector } from './components/BrandSelector';
 import { FeaturedCarSection } from './components/FeaturedCarSection';
+import { SellCarBanner } from './components/SellCarBanner';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
@@ -64,14 +67,6 @@ const MainContent: React.FC = () => {
       window.history.replaceState(null, '', `#/${activePage}`);
     }
   }, [activePage]);
-
-  // Featured cars for Home page (available first, or marked featured)
-  const featuredCars = useMemo(() => {
-    const featured = cars.filter((c) => c.featured && c.status === 'available');
-    if (featured.length >= 3) return featured.slice(0, 4);
-    const available = cars.filter((c) => c.status === 'available');
-    return available.slice(0, 4);
-  }, [cars]);
 
   // Filtered cars for "Available Cars" page
   const filteredCars = useMemo(() => {
@@ -160,34 +155,37 @@ const MainContent: React.FC = () => {
   }, [cars, filters]);
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col selection:bg-red-600 selection:text-white">
-      {/* Top sticky Navigation */}
+    <div className="min-h-screen bg-slate-50 text-neutral-900 flex flex-col selection:bg-emerald-600 selection:text-white">
+      {/* 1. Sticky premium header */}
       <Navbar />
 
       {/* Main Content Router based on activePage */}
       <main className="flex-1">
         {activePage === 'home' && (
           <div>
-            {/* Hero Section */}
+            {/* 2. Large HERO section */}
             <Hero />
 
-            {/* Featured Car of the Week Spotlight */}
-            <FeaturedCarSection />
+            {/* 3. Four feature cards */}
+            <QuickStats />
 
-            {/* Featured Cars Section */}
-            <section className="py-16 sm:py-20 bg-neutral-950 border-b border-neutral-900">
+            {/* 4. "Select Your Brand" (Horizontal brand cards) */}
+            <BrandSelector />
+
+            {/* 5. "Best Deals on Used Cars" (Real Firebase car listings) */}
+            <section className="py-16 sm:py-24 bg-white border-b border-neutral-200/80" id="best-deals-section">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
                   <div>
-                    <div className="inline-flex items-center gap-1.5 rounded-full border border-red-600/30 bg-red-600/10 px-3 py-1 text-xs font-semibold text-red-400 mb-2">
-                      <Sparkles className="h-3.5 w-3.5" />
-                      <span>Handpicked Showroom Picks</span>
+                    <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-bold text-emerald-800 mb-2">
+                      <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
+                      <span>Certified Showroom Stock</span>
                     </div>
-                    <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                      Featured Pre-Owned Cars
+                    <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 tracking-tight uppercase">
+                      Best Deals on Used Cars
                     </h2>
-                    <p className="mt-1 text-xs sm:text-sm text-neutral-300">
-                      Our most sought-after cars currently available at AM Cars Ambai showroom.
+                    <p className="mt-2 text-xs sm:text-sm text-neutral-600 max-w-xl">
+                      Explore our handpicked collection of verified pre-owned vehicles. Every car is inspected across 150 points with clear RTO documentation and instant test drives.
                     </p>
                   </div>
 
@@ -196,75 +194,73 @@ const MainContent: React.FC = () => {
                       setActivePage('cars');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-red-500 hover:text-red-400 transition-colors group cursor-pointer"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-colors group cursor-pointer"
                   >
                     <span>View All {cars.length} Vehicles</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
 
-                {/* Featured Cars Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {featuredCars.map((car) => (
-                    <CarCard
-                      key={car.id}
-                      car={car}
-                      onViewDetails={(c) => setSelectedCar(c)}
-                    />
-                  ))}
+                {/* Best Deals Grid (3/4-columns) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {cars
+                    .filter((c) => c.status === 'available')
+                    .slice(0, 8)
+                    .map((car) => (
+                      <CarCard
+                        key={car.id}
+                        car={car}
+                        onViewDetails={(c) => setSelectedCar(c)}
+                      />
+                    ))}
                 </div>
 
-                {/* Sell Your Car Broker Marketplace Banner */}
-                <div className="mt-12 rounded-3xl border border-red-600/30 bg-gradient-to-r from-neutral-900 via-red-950/20 to-neutral-900 p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-                  <div className="space-y-2 text-center md:text-left">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600/15 border border-red-600/30 px-3 py-1 text-xs font-bold text-red-400">
-                      <span>Confidential Broker Service</span>
-                    </span>
-                    <h3 className="font-display text-xl sm:text-2xl font-extrabold text-white">
-                      Want to Sell Your Car in Ambasamudram?
-                    </h3>
-                    <p className="text-xs sm:text-sm text-neutral-300 max-w-xl">
-                      List your car through AM Cars Ambai. We negotiate with verified buyers and handle all RTO documentation. Your personal phone number is <strong className="text-white">100% confidential</strong> and never shared with the public.
-                    </p>
-                  </div>
+                {/* View Full Inventory Button */}
+                <div className="mt-12 text-center">
                   <button
                     onClick={() => {
-                      setActivePage('sell');
+                      setActivePage('cars');
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="shrink-0 inline-flex items-center gap-2 rounded-2xl bg-red-600 hover:bg-red-500 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-red-950/50 transition-all active:scale-95 cursor-pointer"
+                    className="inline-flex items-center gap-2.5 rounded-2xl bg-neutral-900 hover:bg-emerald-600 px-8 py-4 text-xs sm:text-sm font-bold text-white uppercase tracking-wider transition-all cursor-pointer shadow-md active:scale-95"
                   >
-                    <span>Submit Vehicle for Broker Review</span>
+                    <span>Explore Full Inventory ({cars.length} Cars)</span>
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
               </div>
             </section>
 
-            {/* Why Choose Us Section */}
+            {/* 6. Large "Featured Car" section */}
+            <FeaturedCarSection />
+
+            {/* 7. "Sell Your Car with AM Cars" */}
+            <SellCarBanner />
+
+            {/* 8. "Why Choose AM Cars?" */}
             <WhyChooseUs onNavigateToCars={() => setActivePage('cars')} />
 
-            {/* Customer Testimonials */}
+            {/* Customer Stories & Testimonials */}
             <Testimonials />
 
-            {/* Quick Contact & Directions Preview */}
+            {/* 9. "Get in Touch" */}
             <ContactSection />
           </div>
         )}
 
         {activePage === 'cars' && (
-          <div className="py-10 sm:py-16 bg-neutral-950">
+          <div className="py-10 sm:py-16 bg-slate-50/70">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
               {/* Header */}
               <div className="max-w-2xl">
-                <div className="inline-flex items-center gap-2 rounded-full border border-red-600/30 bg-red-600/10 px-3.5 py-1 text-xs font-semibold text-red-400 mb-3">
-                  <CarIcon className="h-3.5 w-3.5" />
+                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-bold text-emerald-800 mb-3">
+                  <CarIcon className="h-3.5 w-3.5 text-emerald-600" />
                   <span>Verified Ambasamudram Inventory</span>
                 </div>
-                <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight">
                   Available Pre-Owned Cars
                 </h1>
-                <p className="mt-2 text-sm text-neutral-300">
+                <p className="mt-2 text-sm text-neutral-600">
                   Explore certified used cars with 100% verified service history, transparent prices, and instant WhatsApp booking.
                 </p>
               </div>
@@ -281,7 +277,7 @@ const MainContent: React.FC = () => {
 
               {/* Cars Grid or Empty State */}
               {filteredCars.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pt-2">
                   {filteredCars.map((car) => (
                     <CarCard
                       key={car.id}
@@ -292,20 +288,20 @@ const MainContent: React.FC = () => {
                 </div>
               ) : (
                 /* Empty state */
-                <div className="rounded-3xl border border-neutral-800 bg-neutral-900/60 p-12 text-center max-w-xl mx-auto space-y-4">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-800 text-neutral-400">
-                    <AlertCircle className="h-8 w-8 text-red-500" />
+                <div className="rounded-3xl border border-neutral-200 bg-white p-12 text-center max-w-xl mx-auto space-y-4 shadow-md">
+                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-100 text-neutral-500">
+                    <AlertCircle className="h-8 w-8 text-amber-600" />
                   </div>
-                  <h3 className="font-display text-xl font-bold text-white">
+                  <h3 className="font-display text-xl font-bold text-neutral-900">
                     No Cars Match Your Filter
                   </h3>
-                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                     We couldn't find any vehicles matching your exact search criteria. Try relaxing your filters or contact us directly on WhatsApp — we source cars on demand across Tirunelveli and Tenkasi!
                   </p>
                   <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                     <button
                       onClick={resetFilters}
-                      className="rounded-xl border border-neutral-700 bg-neutral-800 px-4 py-2.5 text-xs font-semibold text-white hover:bg-neutral-700 cursor-pointer"
+                      className="rounded-xl border border-neutral-200 bg-neutral-100 px-4 py-2.5 text-xs font-bold text-neutral-800 hover:bg-neutral-200 cursor-pointer"
                     >
                       Clear All Filters
                     </button>
@@ -315,7 +311,7 @@ const MainContent: React.FC = () => {
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-emerald-500 flex items-center gap-1.5"
+                      className="rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-emerald-700 flex items-center gap-1.5 shadow-xs"
                     >
                       <MessageCircle className="h-3.5 w-3.5 fill-current" />
                       <span>Ask via WhatsApp</span>
@@ -351,16 +347,16 @@ const MainContent: React.FC = () => {
         <a
           href={getPhoneCallUrl(settings)}
           id="floating-call-btn"
-          className="group flex items-center gap-2 rounded-full bg-neutral-900 border border-neutral-700 pl-3 pr-3.5 py-2.5 text-white shadow-xl hover:bg-neutral-800 hover:border-red-500/40 transition-all duration-300 hover:scale-105 active:scale-95"
+          className="group flex items-center gap-2 rounded-full bg-white border border-neutral-200 pl-3 pr-3.5 py-2.5 text-neutral-900 shadow-lg hover:border-emerald-500 transition-all duration-300 hover:scale-105 active:scale-95"
           aria-label={`Call ${settings.businessName} at ${settings.phone}`}
           title={`Call ${settings.businessName}`}
         >
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-red-600/20 text-red-400">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
             <Phone className="h-3.5 w-3.5" />
           </div>
           <div className="text-left">
-            <p className="text-[9px] uppercase font-bold text-red-400 leading-none">Call Showroom</p>
-            <p className="text-xs font-bold leading-tight text-white">{settings.phone}</p>
+            <p className="text-[9px] uppercase font-bold text-emerald-700 leading-none">Call Showroom</p>
+            <p className="text-xs font-bold leading-tight text-neutral-900">{settings.phone}</p>
           </div>
         </a>
 
@@ -369,7 +365,7 @@ const MainContent: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
           id="floating-whatsapp-btn"
-          className="group flex items-center gap-2.5 rounded-full bg-emerald-600 pl-3.5 pr-4 py-3 text-white shadow-2xl shadow-emerald-950 hover:bg-emerald-500 transition-all duration-300 hover:scale-105 active:scale-95"
+          className="group flex items-center gap-2.5 rounded-full bg-emerald-600 pl-3.5 pr-4 py-3 text-white shadow-xl shadow-emerald-600/30 hover:bg-emerald-700 transition-all duration-300 hover:scale-105 active:scale-95"
           aria-label={`Direct WhatsApp chat with ${settings.businessName}`}
           title={`WhatsApp ${settings.businessName}`}
         >
@@ -385,13 +381,13 @@ const MainContent: React.FC = () => {
 
       {/* Global Toast Notification */}
       {toastMessage && (
-        <aside aria-label="Notification" className="fixed top-20 right-5 z-50 rounded-2xl border border-red-600/40 bg-neutral-900/95 px-4 py-3 text-xs font-semibold text-white shadow-2xl shadow-black backdrop-blur-md flex items-center gap-2.5 animate-in slide-in-from-right-4 duration-200">
-          <CheckCircle2 className="h-4 w-4 text-red-400 shrink-0" />
+        <aside aria-label="Notification" className="fixed top-20 right-5 z-50 rounded-2xl border border-emerald-200 bg-white px-4 py-3 text-xs font-semibold text-neutral-900 shadow-xl flex items-center gap-2.5 animate-in slide-in-from-right-4 duration-200">
+          <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
           <span>{toastMessage}</span>
         </aside>
       )}
 
-      {/* Footer */}
+      {/* 10. Premium dark footer */}
       <Footer onNavigate={(p) => setActivePage(p)} />
     </div>
   );

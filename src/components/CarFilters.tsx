@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import { 
   Search, 
   RotateCcw, 
-  Filter
+  Filter,
+  SlidersHorizontal
 } from 'lucide-react';
 import { FilterState, Car } from '../types';
 import { POPULAR_BRANDS } from '../data/sampleCars';
@@ -67,7 +68,7 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
   };
 
   return (
-    <div className="rounded-2xl border border-neutral-800 bg-neutral-900/90 p-4 sm:p-6 shadow-xl backdrop-blur-md">
+    <div className="rounded-3xl border border-neutral-200/90 bg-white p-5 sm:p-7 shadow-md">
       {/* Top search & quick controls bar */}
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         {/* Search input */}
@@ -77,13 +78,13 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
             type="text"
             value={filters.search}
             onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
-            placeholder="Search by car name, model (e.g. Swift, Creta, Thar, Innova)..."
-            className="w-full rounded-xl border border-neutral-700 bg-neutral-950 py-2.5 pl-10 pr-4 text-sm text-white placeholder-neutral-500 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+            placeholder="Search by car name, model (e.g. Swift, Creta, Thar, Innova, BMW)..."
+            className="w-full rounded-2xl border border-neutral-200 bg-neutral-50 py-2.5 pl-10 pr-12 text-sm text-neutral-900 placeholder-neutral-400 focus:border-emerald-600 focus:bg-white focus:outline-none"
           />
           {filters.search && (
             <button
               onClick={() => setFilters((prev) => ({ ...prev, search: '' }))}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 hover:text-white"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-neutral-500 hover:text-neutral-900 cursor-pointer"
             >
               Clear
             </button>
@@ -93,7 +94,7 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
         {/* Sort by dropdown & Result badge */}
         <div className="flex flex-wrap items-center gap-2.5">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-neutral-400 font-medium">Sort by:</span>
+            <span className="text-xs text-neutral-500 font-semibold">Sort by:</span>
             <select
               value={filters.sortBy}
               onChange={(e) =>
@@ -102,7 +103,7 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
                   sortBy: e.target.value as FilterState['sortBy'],
                 }))
               }
-              className="rounded-xl border border-neutral-700 bg-neutral-950 px-3 py-2 text-xs font-semibold text-neutral-200 focus:border-red-500 focus:outline-none"
+              className="rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-2 text-xs font-semibold text-neutral-800 focus:border-emerald-600 focus:bg-white focus:outline-none"
             >
               <option value="featured">Featured First</option>
               <option value="price-asc">Price: Low to High</option>
@@ -115,26 +116,26 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
           {isFiltered && (
             <button
               onClick={resetFilters}
-              className="flex items-center gap-1.5 rounded-xl border border-neutral-700 bg-neutral-800 px-3 py-2 text-xs font-semibold text-neutral-300 hover:bg-neutral-700 hover:text-white transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 rounded-xl border border-neutral-200 bg-neutral-100 px-3 py-2 text-xs font-bold text-neutral-700 hover:bg-neutral-200 transition-colors cursor-pointer"
             >
               <RotateCcw className="h-3 w-3" />
-              <span>Reset</span>
+              <span>Reset Filters</span>
             </button>
           )}
         </div>
       </div>
 
       {/* Filter Selectors Grid */}
-      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8 border-t border-neutral-800/80 pt-4">
+      <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8 border-t border-neutral-100 pt-4">
         {/* Brand */}
         <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+          <label className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-neutral-500">
             Brand
           </label>
           <select
             value={filters.brand}
             onChange={(e) => handleBrandChange(e.target.value)}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-2.5 py-2 text-xs text-white focus:border-red-500 focus:outline-none"
+            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-2.5 py-2 text-xs font-medium text-neutral-800 focus:border-emerald-600 focus:bg-white focus:outline-none"
           >
             {POPULAR_BRANDS.map((b) => (
               <option key={b} value={b}>
@@ -146,7 +147,7 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
 
         {/* Model */}
         <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+          <label className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-neutral-500">
             Model
           </label>
           <select
@@ -157,7 +158,7 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
                 model: e.target.value === 'All Models' ? '' : e.target.value,
               }))
             }
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-2.5 py-2 text-xs text-white focus:border-red-500 focus:outline-none"
+            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-2.5 py-2 text-xs font-medium text-neutral-800 focus:border-emerald-600 focus:bg-white focus:outline-none"
           >
             <option value="All Models">All Models</option>
             {availableModels.map((m) => (
@@ -170,13 +171,13 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
 
         {/* Budget / Price Range */}
         <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+          <label className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-neutral-500">
             Price Range
           </label>
           <select
             value={filters.priceRange}
             onChange={(e) => setFilters((prev) => ({ ...prev, priceRange: e.target.value }))}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-2.5 py-2 text-xs text-white focus:border-red-500 focus:outline-none"
+            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-2.5 py-2 text-xs font-medium text-neutral-800 focus:border-emerald-600 focus:bg-white focus:outline-none"
           >
             <option value="all">All Prices</option>
             <option value="under3">Under ₹3 Lakh</option>
@@ -188,13 +189,13 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
 
         {/* Manufacturing Year */}
         <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+          <label className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-neutral-500">
             Year
           </label>
           <select
             value={filters.year}
             onChange={(e) => setFilters((prev) => ({ ...prev, year: e.target.value }))}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-2.5 py-2 text-xs text-white focus:border-red-500 focus:outline-none"
+            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-2.5 py-2 text-xs font-medium text-neutral-800 focus:border-emerald-600 focus:bg-white focus:outline-none"
           >
             <option value="all">All Years</option>
             <option value="2022+">2022 & Newer</option>
@@ -206,13 +207,13 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
 
         {/* Fuel Type */}
         <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+          <label className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-neutral-500">
             Fuel Type
           </label>
           <select
             value={filters.fuelType}
             onChange={(e) => setFilters((prev) => ({ ...prev, fuelType: e.target.value }))}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-2.5 py-2 text-xs text-white focus:border-red-500 focus:outline-none"
+            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-2.5 py-2 text-xs font-medium text-neutral-800 focus:border-emerald-600 focus:bg-white focus:outline-none"
           >
             <option value="all">All Fuels</option>
             <option value="Petrol">Petrol</option>
@@ -224,13 +225,13 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
 
         {/* Transmission */}
         <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+          <label className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-neutral-500">
             Transmission
           </label>
           <select
             value={filters.transmission}
             onChange={(e) => setFilters((prev) => ({ ...prev, transmission: e.target.value }))}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-2.5 py-2 text-xs text-white focus:border-red-500 focus:outline-none"
+            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-2.5 py-2 text-xs font-medium text-neutral-800 focus:border-emerald-600 focus:bg-white focus:outline-none"
           >
             <option value="all">All Transmissions</option>
             <option value="Manual">Manual</option>
@@ -240,13 +241,13 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
 
         {/* Location */}
         <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+          <label className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-neutral-500">
             Location
           </label>
           <select
             value={filters.location || 'all'}
             onChange={(e) => setFilters((prev) => ({ ...prev, location: e.target.value }))}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-2.5 py-2 text-xs text-white focus:border-red-500 focus:outline-none"
+            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-2.5 py-2 text-xs font-medium text-neutral-800 focus:border-emerald-600 focus:bg-white focus:outline-none"
           >
             <option value="all">All Locations</option>
             {availableLocations.map((loc) => (
@@ -259,13 +260,13 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
 
         {/* Status */}
         <div>
-          <label className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
+          <label className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-neutral-500">
             Availability
           </label>
           <select
             value={filters.status}
             onChange={(e) => setFilters((prev) => ({ ...prev, status: e.target.value }))}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-950 px-2.5 py-2 text-xs text-white focus:border-red-500 focus:outline-none"
+            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-2.5 py-2 text-xs font-medium text-neutral-800 focus:border-emerald-600 focus:bg-white focus:outline-none"
           >
             <option value="all">All Vehicles</option>
             <option value="available">Available in Stock</option>
@@ -275,13 +276,13 @@ export const CarFilters: React.FC<CarFiltersProps> = ({
       </div>
 
       {/* Showing count indicator */}
-      <div className="mt-4 flex items-center justify-between text-xs text-neutral-400 pt-3 border-t border-neutral-800/60">
+      <div className="mt-4 flex items-center justify-between text-xs text-neutral-600 pt-3 border-t border-neutral-100">
         <div>
-          Showing <span className="font-bold text-white">{totalFiltered}</span> of{' '}
-          <span className="font-semibold text-neutral-300">{totalAll}</span> cars
+          Showing <span className="font-bold text-neutral-900">{totalFiltered}</span> of{' '}
+          <span className="font-semibold text-neutral-700">{totalAll}</span> cars
         </div>
         {isFiltered && (
-          <span className="rounded-md bg-red-600/15 px-2 py-0.5 text-[11px] font-bold text-red-400 border border-red-500/30">
+          <span className="rounded-md bg-emerald-50 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800 border border-emerald-200">
             Filters Active
           </span>
         )}

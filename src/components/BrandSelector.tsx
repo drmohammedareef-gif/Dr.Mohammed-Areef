@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Car } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { useCars } from '../context/CarContext';
 
 interface BrandItem {
@@ -23,7 +23,7 @@ const BRANDS_LIST: BrandItem[] = [
 ];
 
 export const BrandSelector: React.FC = () => {
-  const { setFilters, setActivePage, cars } = useCars();
+  const { setFilters, setActivePage, cars, filters } = useCars();
 
   const handleBrandClick = (brandName: string) => {
     setFilters((prev) => ({
@@ -44,64 +44,66 @@ export const BrandSelector: React.FC = () => {
   };
 
   return (
-    <section className="bg-neutral-950 py-14 sm:py-20 border-b border-neutral-900">
+    <section className="bg-slate-50/70 py-14 sm:py-20 border-b border-neutral-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-red-600/30 bg-red-600/10 px-3 py-1 text-xs font-bold text-red-400 mb-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-              <span>Showroom Selection</span>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-bold text-emerald-800 mb-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
+              <span>Showroom Brand Selection</span>
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight uppercase">
-              SELECT YOUR CAR BY BRAND
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral-900 tracking-tight uppercase">
+              Select Your Brand
             </h2>
-            <p className="mt-1 text-xs sm:text-sm text-neutral-400 max-w-xl">
-              Filter our certified inventory by trusted automotive manufacturers. Find the brand that matches your lifestyle.
+            <p className="mt-2 text-xs sm:text-sm text-neutral-600 max-w-xl">
+              Choose your preferred automotive brand to filter certified vehicles currently available in our Ambasamudram showroom.
             </p>
           </div>
 
           <button
             onClick={handleViewAll}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-red-500 hover:text-red-400 transition-colors group cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-colors group cursor-pointer"
           >
             <span>View All Makes & Models</span>
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
-        {/* Brands Grid */}
+        {/* Brand Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-          {BRANDS_LIST.map((b) => {
+          {BRANDS_LIST.map((brand) => {
             const count = cars.filter(
-              (c) => c.status === 'available' && c.brand.toLowerCase() === b.name.toLowerCase()
+              (c) => c.status === 'available' && c.brand.toLowerCase() === brand.name.toLowerCase()
             ).length;
+            const isSelected = filters.brand === brand.name;
 
             return (
               <button
-                key={b.name}
-                onClick={() => handleBrandClick(b.name)}
-                className="group relative flex flex-col items-center justify-center rounded-2xl border border-neutral-800 bg-neutral-900/50 p-4 sm:p-5 text-center transition-all duration-300 hover:border-red-600 hover:bg-neutral-900 hover:shadow-xl hover:shadow-red-950/30 active:scale-95 cursor-pointer"
+                key={brand.name}
+                onClick={() => handleBrandClick(brand.name)}
+                className={`group relative flex flex-col items-center justify-center p-4 sm:p-5 rounded-2xl border transition-all duration-200 text-center cursor-pointer ${
+                  isSelected
+                    ? 'border-emerald-600 bg-emerald-50 shadow-sm ring-1 ring-emerald-600'
+                    : 'border-neutral-200/90 bg-white hover:border-emerald-500 hover:shadow-md hover:bg-neutral-50/50'
+                }`}
               >
-                {/* Brand Badge */}
-                <div className="relative mb-3 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl bg-neutral-950 border border-neutral-800 group-hover:border-red-600/60 group-hover:bg-red-600/10 transition-all shadow-inner">
-                  <span className="font-display text-xs sm:text-sm font-black text-white group-hover:text-red-400 tracking-wider">
-                    {b.badge}
-                  </span>
+                {/* Brand Badge / Monogram */}
+                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl text-sm font-black transition-transform group-hover:scale-110 mb-3 ${
+                  isSelected 
+                    ? 'bg-emerald-600 text-white shadow-sm'
+                    : 'bg-neutral-100 text-neutral-800 group-hover:bg-emerald-100 group-hover:text-emerald-800'
+                }`}>
+                  {brand.badge}
                 </div>
 
-                <h3 className="font-display text-xs sm:text-sm font-bold text-white group-hover:text-red-400 transition-colors line-clamp-1">
-                  {b.name}
-                </h3>
-                <p className="text-[10px] text-neutral-400 line-clamp-1 mt-0.5">
-                  {b.tagline}
-                </p>
+                <span className="font-display text-sm font-bold text-neutral-900 group-hover:text-emerald-700 transition-colors">
+                  {brand.name}
+                </span>
 
-                {count > 0 && (
-                  <span className="mt-2 inline-flex items-center rounded-full bg-red-600/20 border border-red-600/40 px-2 py-0.5 text-[9px] font-bold text-red-300">
-                    {count} Available
-                  </span>
-                )}
+                <span className="text-[11px] text-neutral-500 mt-0.5">
+                  {count > 0 ? `${count} In Stock` : 'Browse Brand'}
+                </span>
               </button>
             );
           })}
